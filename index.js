@@ -1,7 +1,15 @@
 const express=require("express")
+const connectDB=require("./config/db")
+const userRoutes=require("./routes/userRoutes")
 
-const app=express() //using express 
+const app=express() 
 app.use(express.json())
+
+//2 new implementations
+connectDB()
+app.use("/api/auth",userRoutes)
+
+
 
 app.get(
     "/", //root targeted
@@ -220,3 +228,11 @@ app.listen(
     }
 )
 
+
+//task
+//create a model student
+//stu_id number, stu_email,String stu_name string
+//create a controller studentController to save the student data
+// create a router stuRouter with '/create' to point studentController
+// use the router with "/api/students/" to point sturouter
+//
