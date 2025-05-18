@@ -2,12 +2,20 @@ const express=require("express")
 const connectDB=require("./config/db")
 const userRoutes=require("./routes/userRoutes")
 
+const stuRouter = require("./routes/studentRoutes");
+app.use("/api/students", stuRouter);
+
+
 const app=express() 
 app.use(express.json())
 
 //2 new implementations
 connectDB()
 app.use("/api/auth",userRoutes)
+
+//now for student
+connectDB()
+app.use("api/auth",studentRoutes)
 
 
 
@@ -235,4 +243,4 @@ app.listen(
 //create a controller studentController to save the student data
 // create a router stuRouter with '/create' to point studentController
 // use the router with "/api/students/" to point sturouter
-//
+//insert data with postman
