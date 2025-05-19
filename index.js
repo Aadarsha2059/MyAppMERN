@@ -16,6 +16,13 @@ app.use("/api/auth",userRoutes)
 app.use("/api/students", stuRouter)
 app.use("/api/admin/users",adminUserRoutes)
 
+//task
+// from student model make admin crud operation
+// create get getone updateone deleteone
+// make a controllers -> adminn -> studentcontroller
+//make a route routers -> admin -> studentRouteadmin
+// implement the route in inxed.js and try all the route in postman..
+
 //now for student
 // connectDB()
 // app.use("api/auth",studentRoutes)
