@@ -1,8 +1,10 @@
+require("dotenv").config()
+
 const express=require("express")
 const connectDB=require("./config/db")
 const userRoutes=require("./routes/userRoutes")
-
-const stuRouter = require("./routes/studentRoutes");
+const adminUserRoutes=require("./routes/admin/userRouteAdmin")
+const stuRouter = require("./routes/studentRoutes")
 
 
 const app=express() 
@@ -11,7 +13,8 @@ app.use(express.json())
 //2 new implementations
 connectDB()
 app.use("/api/auth",userRoutes)
-app.use("/api/students", stuRouter);
+app.use("/api/students", stuRouter)
+app.use("api/admin/users",adminUserRoutes)
 
 //now for student
 // connectDB()
@@ -228,7 +231,7 @@ app.delete(
     }
 )
 
-
+const PORT=process.env.PORT
 app.listen(
     5050,  // port -> local host:5050
     ()=>{
