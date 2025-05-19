@@ -14,7 +14,7 @@ app.use(express.json())
 connectDB()
 app.use("/api/auth",userRoutes)
 app.use("/api/students", stuRouter)
-app.use("api/admin/users",adminUserRoutes)
+app.use("/api/admin/users",adminUserRoutes)
 
 //now for student
 // connectDB()
