@@ -3,7 +3,6 @@ const connectDB=require("./config/db")
 const userRoutes=require("./routes/userRoutes")
 
 const stuRouter = require("./routes/studentRoutes");
-app.use("/api/students", stuRouter);
 
 
 const app=express() 
@@ -12,10 +11,11 @@ app.use(express.json())
 //2 new implementations
 connectDB()
 app.use("/api/auth",userRoutes)
+app.use("/api/students", stuRouter);
 
 //now for student
-connectDB()
-app.use("api/auth",studentRoutes)
+// connectDB()
+// app.use("api/auth",studentRoutes)
 
 
 
