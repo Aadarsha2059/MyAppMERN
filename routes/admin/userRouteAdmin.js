@@ -2,6 +2,8 @@ const express= require("express")
 const router =express.Router()
 const {createUser,getOneUser, deleteOne, getUsers, updateOne }
 =require("../../controllers/admin/usermanagement")
+
+const{authenticateUser, isAdmin}=require("../../middlewares/authorizedUser")
 //5 common api route 
 router.post(
     "/",
@@ -9,6 +11,8 @@ router.post(
 )
 router.get(
     "/",
+    authenticateUser, 
+    isAdmin,// next() goes to next getUser.
     getUsers
 )
 router.get(
