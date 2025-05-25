@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt =require("jsonwebtoken")
 
 exports.registerUser = async (req, res) => {
     const { username, email, firstName, lastName, password } = req.body;
@@ -49,3 +50,54 @@ exports.registerUser = async (req, res) => {
         });
     }
 };
+
+
+
+exports.loginUser=async(req, res) =>{
+    const {email,password}=req.body
+    //validation
+    if(!email || !password){
+        return res.status(400).json(
+            {"success":false,"message":"Missing field"}
+        )
+    }
+    try{
+        const getUsers =await User.findOne(
+            {email:email}
+        )
+        if(!getUsers){
+            return res.status(403).json(
+                {"success":false,"message":"User not found"}
+            )
+        }
+        const passwordCHeck= await bcrypt.compare(password,getUsers.password) //pass,hash password
+        if(!passwordCHeck){
+            return res.status(403).json(
+                {"success":false,"message":"Invalid credentials"}
+            )
+        }
+
+
+        //
+        const payload={
+            "_id":getUsers._id,
+            "email":getUsers.email,
+            "username":getUsers.username
+        }
+        const token=jwt.sign(payload, process.env.SECRET,
+            {expiresIn:"7d"}
+        )
+        return res.status(200).json(
+            {
+                "success":true,
+                "message":"Login successful",
+                "data":getUsers,
+                "token":token // return toke in login...
+            }
+        )
+    }catch (err){
+        return res.status(500).json(
+            {"success":false,"message":"Server error"}
+        )
+    }
+}
