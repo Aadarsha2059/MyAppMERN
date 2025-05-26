@@ -15,7 +15,7 @@ const productSchema=new mongoose.Schema(
             ref:'Category',
             required:true
         },
-        sellerid:{
+        sellerId:{
             type:mongoose.Schema.ObjectId,
             ref:'User',
             required:true
