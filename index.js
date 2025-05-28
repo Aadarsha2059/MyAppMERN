@@ -6,7 +6,9 @@ const userRoutes=require("./routes/userRoutes")
 const adminUserRoutes=require("./routes/admin/userRouteAdmin")
 const stuRouter = require("./routes/studentRoutes")
 
-const adminCategoryRoutes=require("./routes/admin/productRouteAdmin")
+const productRouteAdmin=require("./routes/admin/productRouteAdmin")
+
+const adminCategoryRoutes = require("./routes/admin/categoryRouteAdmin")
 
 
 const app=express() 
@@ -18,7 +20,9 @@ app.use("/api/auth",userRoutes)
 app.use("/api/students", stuRouter)
 app.use("/api/admin/users",adminUserRoutes)
 
-app.use("/api/admin/product",adminCategoryRoutes)
+app.use("/api/admin/product",productRouteAdmin)
+
+app.use("/api/admin/category", adminCategoryRoutes)
 
 //task
 // from student model make admin crud operation

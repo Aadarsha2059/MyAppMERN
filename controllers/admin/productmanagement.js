@@ -32,10 +32,36 @@ exports.createProduct=async(req,res)=>{
 
 exports.getProducts=async(req,res)=>{
     try{
-        const products=await Product.find().populate("categoryId","name")
+        const { page=1, limit=10, search=""}=req.query
+        let filter={}
+        if(search){
+            filter.$or=[
+                {name:{$regrex:search,
+                    $options:'i'}}
+            ]
+        }
+        const skip =(page -1) * limit
+
+        const products=await Product.find(filter)
+        .populate("categoryId","name")
         .populate("sellerId","firstName email")
+        .skip(skip)
+        .limit(Number(limit))
+        const total= await Product.countDocuments(filter)
+
         return res.status(200).json(
-            {success:true,message:"product fetched",data:products}
+            {success:true,
+                message:"product fetched",
+                data:products,
+                pagination:{
+                    total,
+                    page:Number(page),
+                    limit:Number(limit),
+                    totalPages:Math.ceil(
+                        total/limit
+                    )
+                }
+            }
         )
 
     }catch(err){
