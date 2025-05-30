@@ -65,6 +65,7 @@ exports.getProducts=async(req,res)=>{
         )
 
     }catch(err){
+        console.log('getProducts')
         return res.status(500).json(
             {success:false,message:"server error"}
         )
