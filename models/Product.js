@@ -6,6 +6,7 @@ const productSchema=new mongoose.Schema(
             type:String,
             required:true
         },
+        filepath:{type:String},
         price:{
             type:Number,
             required:true

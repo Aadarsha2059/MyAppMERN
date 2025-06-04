@@ -12,8 +12,13 @@ const adminCategoryRoutes = require("./routes/admin/categoryRouteAdmin")
 
 const path=require("path") //
 
-
+const cors=require("cors")
 const app=express() 
+
+let corsOptions={
+    origin:"*"
+}
+app.use(cors(corsOptions))
 app.use(express.json()) //accept join in request
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 

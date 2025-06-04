@@ -1,7 +1,7 @@
 const express =require("express")
 const router=express.Router()
 const productController=require("../../controllers/admin/productmanagement")
-
+const upload = require("../../middlewares/fileupload")
 //can be imported
 // previously
 //const {createProduct}=require("../../controllers/admin/productmanagement")
@@ -9,6 +9,7 @@ const productController=require("../../controllers/admin/productmanagement")
 
 router.post(
         "/",
+        upload.single("image"),
     productController.createProduct 
 )
 router.get(
